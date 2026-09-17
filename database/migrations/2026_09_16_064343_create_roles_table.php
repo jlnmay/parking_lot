@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique(); // Administrador, Supervisor, Cajero
+            $table->string('name')->unique(); // administrador, supervisor, cajero
             $table->timestamps();
         });
     }

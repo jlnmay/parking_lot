@@ -15,14 +15,19 @@ class DevAdminSeeder extends Seeder
      */
     public function run(): void
     {
-        User::firstOrCreate(
-            ['email' => 'admin@parkinglot.test'],
-            [
-                'name' => 'Dev Admin',
-                'password' => Hash::make('password'),
-                'role_id' => Role::where('name', 'Administrador')->first()->id,
-                'status' => 'active',
-            ]
-        );
+        $roles = ['administrador', 'supervisor', 'cajero'];
+
+        foreach ($roles as $roleName) {
+            $role = Role::where('name', $roleName)->firstOrFail();
+
+            User::firstOrCreate(
+                ['email' => strtolower($roleName) . '@example.com'],
+                [
+                    'name' => "Dev {$roleName}",
+                    'password' => bcrypt('password'),
+                    'role_id' => $role->id,
+                ]
+            );
+        }
     }
 }
