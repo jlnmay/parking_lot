@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 
 class Shift extends Model
 {
     use HasFactory;
-    
+
     public function attendant(): BelongsTo
     {
         return $this->belongsTo(User::class, 'attendant_id');
@@ -24,9 +25,9 @@ class Shift extends Model
         return $this->hasManyThrough(Payment::class, Ticket::class);
     }
 
-    public function belongsToCurrentAttendant(): bool
+    public function belongsToCurrentAttendant(?User $user = null): bool
     {
-        $user = auth()->user();
+        $user ??= auth()->user();
 
         if (! $user) {
             return false;
