@@ -1,6 +1,6 @@
 <script setup>
 // TODO(AUTH-3): replace with actual authenticated user's role
-const role = "attendant";
+const role = "";
 
 const navItems = {
     attendant: [
