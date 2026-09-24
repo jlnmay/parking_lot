@@ -13,16 +13,14 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->string('plate');
-            $table->string('ticket_number')->unique();
+            $table->string('plate_raw', 32);
+            $table->string('plate', 16)->index();
+            $table->string('ticket_number')->nullable()->unique();
             $table->timestamp('entry_time');
             $table->timestamp('exit_time')->nullable();
             $table->decimal('fee', 8, 2)->nullable();
             $table->foreignId('shift_id')->constrained('shifts')->onDelete('restrict');
             $table->timestamps();
-
-            $table->index('plate');
-            $table->index('ticket_number');
         });
     }
 
